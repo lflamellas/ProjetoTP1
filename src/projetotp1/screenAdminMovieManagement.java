@@ -112,7 +112,7 @@ public class screenAdminMovieManagement extends javax.swing.JFrame {
 
         launchDateLabel.setForeground(new java.awt.Color(255, 255, 255));
         launchDateLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        launchDateLabel.setText("Launch Date");
+        launchDateLabel.setText("Launch Year");
 
         ratingLabel.setForeground(new java.awt.Color(255, 255, 255));
         ratingLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
