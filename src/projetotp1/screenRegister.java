@@ -8,10 +8,7 @@ package projetotp1;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,7 +45,6 @@ public class screenRegister extends javax.swing.JFrame {
     inputConfirmPassword = new javax.swing.JPasswordField();
     inputPassword = new javax.swing.JPasswordField();
 
-    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setSize(new java.awt.Dimension(800, 500));
 
     dashboard.setBackground(new java.awt.Color(47, 54, 89));
@@ -150,12 +146,15 @@ public class screenRegister extends javax.swing.JFrame {
           
           try {
             try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("users.txt", true))) {
-              buffWrite.append(user + " " + email + " " + senha + "\n");
+              buffWrite.append(user + ";" + email + ";" + senha + "\n");
               buffWrite.close();
             }
           } catch (IOException erro) {
             System.out.println(erro.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possível realizar o cadastro!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
           }
+          
+          JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_loginButtonMouseClicked
 

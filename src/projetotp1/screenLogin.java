@@ -5,6 +5,15 @@
  */
 package projetotp1;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author lflamellas
@@ -129,7 +138,48 @@ public class screenLogin extends javax.swing.JFrame {
 
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseClicked
         // TODO add your handling code here:
-//        System.out.println(inputPassword.getPassword());
+      if (inputUser.getText().equals("")) {
+        JOptionPane.showMessageDialog(null, "Campos em branco!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+      } else {
+        String user = inputUser.getText();
+        String password = Arrays.toString(inputPassword.getPassword());
+        
+        if (user.equals("admin") && password.equals("[1, 2, 3, 4, 5, 6]")) {
+          this.setVisible(false);
+          new screenAdminMenu().setVisible(true);
+          return;
+        }
+        
+        try (BufferedReader buffRead = new BufferedReader(new FileReader("users.txt"))) {
+          String linha = "";
+          boolean logou = false;
+          String[] dados;
+          
+          while (true) {
+            if (linha != null) {
+              dados = linha.split(";");
+              
+              logou = dados[0].equals(user) && dados[2].equals(password);
+            } else {
+              break;
+            }
+            linha = buffRead.readLine();
+          }
+          
+          if (logou) {
+            this.setVisible(false);
+            new screenUserMenu().setVisible(true);
+          } else {
+            JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+          }
+          
+          buffRead.close();
+        } catch (IOException erro) {
+          System.out.println(erro.getMessage());
+          
+          JOptionPane.showMessageDialog(null, "Por favor, tente novamente!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+        }
+      }
     }//GEN-LAST:event_loginButtonMouseClicked
 
     private void registerButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseClicked
