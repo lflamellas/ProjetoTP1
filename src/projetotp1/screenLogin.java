@@ -32,11 +32,11 @@ public class screenLogin extends javax.swing.JFrame {
     passwordText = new javax.swing.JLabel();
     userText = new javax.swing.JLabel();
     inputUser = new javax.swing.JTextField();
-    inputPassword = new javax.swing.JTextField();
     loginButton = new javax.swing.JButton();
     registerMessage = new javax.swing.JLabel();
     registerButton = new javax.swing.JLabel();
     pictureIcon = new javax.swing.JLabel();
+    inputPassword = new javax.swing.JPasswordField();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setSize(new java.awt.Dimension(800, 500));
@@ -56,7 +56,7 @@ public class screenLogin extends javax.swing.JFrame {
     passwordText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     passwordText.setText("PASSWORD");
     background.add(passwordText);
-    passwordText.setBounds(80, 300, 80, 30);
+    passwordText.setBounds(70, 300, 90, 30);
 
     userText.setFont(new java.awt.Font("Cambay Devanagari", 1, 14)); // NOI18N
     userText.setForeground(new java.awt.Color(255, 255, 255));
@@ -76,17 +76,6 @@ public class screenLogin extends javax.swing.JFrame {
     background.add(inputUser);
     inputUser.setBounds(170, 270, 170, 20);
 
-    inputPassword.setBackground(new java.awt.Color(153, 153, 255));
-    inputPassword.setFont(new java.awt.Font("Andale Mono", 0, 14)); // NOI18N
-    inputPassword.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-    inputPassword.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        inputPasswordActionPerformed(evt);
-      }
-    });
-    background.add(inputPassword);
-    inputPassword.setBounds(170, 310, 170, 21);
-
     loginButton.setFont(new java.awt.Font("Cambay Devanagari", 1, 14)); // NOI18N
     loginButton.setText("LOGIN");
     loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -100,7 +89,7 @@ public class screenLogin extends javax.swing.JFrame {
     registerMessage.setForeground(new java.awt.Color(255, 255, 255));
     registerMessage.setText("Not registered yet?");
     background.add(registerMessage);
-    registerMessage.setBounds(190, 420, 120, 18);
+    registerMessage.setBounds(180, 420, 140, 18);
 
     registerButton.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
     registerButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -111,13 +100,23 @@ public class screenLogin extends javax.swing.JFrame {
       }
     });
     background.add(registerButton);
-    registerButton.setBounds(200, 440, 100, 17);
+    registerButton.setBounds(190, 440, 110, 17);
 
     pictureIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     pictureIcon.setText("ICON");
     pictureIcon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 51)));
     background.add(pictureIcon);
     pictureIcon.setBounds(180, 110, 128, 128);
+
+    inputPassword.setBackground(new java.awt.Color(153, 153, 255));
+    inputPassword.setMinimumSize(new java.awt.Dimension(5, 21));
+    inputPassword.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        inputPasswordActionPerformed(evt);
+      }
+    });
+    background.add(inputPassword);
+    inputPassword.setBounds(170, 310, 170, 20);
 
     getContentPane().add(background, java.awt.BorderLayout.CENTER);
 
@@ -128,17 +127,18 @@ public class screenLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_inputUserActionPerformed
 
-    private void inputPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputPasswordActionPerformed
-
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseClicked
         // TODO add your handling code here:
+//        System.out.println(inputPassword.getPassword());
     }//GEN-LAST:event_loginButtonMouseClicked
 
     private void registerButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseClicked
-        // TODO add your handling code here:
+        new screenRegister().setVisible(true);
     }//GEN-LAST:event_registerButtonMouseClicked
+
+  private void inputPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPasswordActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_inputPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,7 +178,7 @@ public class screenLogin extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JPanel background;
-  private javax.swing.JTextField inputPassword;
+  private javax.swing.JPasswordField inputPassword;
   private javax.swing.JTextField inputUser;
   private javax.swing.JButton loginButton;
   private javax.swing.JLabel logoShadow;
