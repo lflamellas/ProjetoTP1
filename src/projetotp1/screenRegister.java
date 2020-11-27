@@ -5,11 +5,16 @@
  */
 package projetotp1;
 
+import classes.Usuario;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import static projetotp1.screenAdminUserManagement.listaDeUsuarios;
 
 /**
  *
@@ -44,6 +49,7 @@ public class screenRegister extends javax.swing.JFrame {
     emailText = new javax.swing.JLabel();
     inputConfirmPassword = new javax.swing.JPasswordField();
     inputPassword = new javax.swing.JPasswordField();
+    returnButton = new javax.swing.JButton();
 
     setSize(new java.awt.Dimension(800, 500));
 
@@ -126,13 +132,21 @@ public class screenRegister extends javax.swing.JFrame {
     dashboard.add(inputPassword);
     inputPassword.setBounds(190, 290, 170, 20);
 
+    returnButton.setText("Return to login screen");
+    returnButton.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        returnButtonMouseClicked(evt);
+      }
+    });
+    dashboard.add(returnButton);
+    returnButton.setBounds(130, 440, 230, 28);
+
     getContentPane().add(dashboard, java.awt.BorderLayout.CENTER);
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseClicked
-        // TODO add your handling code here:
         if (inputEmail.getText().equals("") || inputUser.getText().equals("")) {
           JOptionPane.showMessageDialog(null, "Todos os campos devem ser inseridos!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
         } else if (inputPassword.getPassword().length < 6) {
@@ -144,9 +158,40 @@ public class screenRegister extends javax.swing.JFrame {
           String email = inputEmail.getText();
           String senha = Arrays.toString(inputPassword.getPassword());
           
+          try (BufferedReader buffRead = new BufferedReader(new FileReader("users.txt"))) {
+            String linha;
+            String[] dados;
+        
+            while (true) {
+              linha = buffRead.readLine();
+              if (linha != null) {
+                dados = linha.split(";");
+                
+                if (dados[0].equals(user)) {
+                  JOptionPane.showMessageDialog(null, "Usuário já existe!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+                  return;
+                }
+                
+                if (dados[1].equals(email)) {
+                  JOptionPane.showMessageDialog(null, "E-mail já existe!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+                  return;
+                }
+              } else {
+                break;
+              }
+            }
+          
+            buffRead.close();
+        
+          } catch (IOException erro) {
+            System.out.println(erro.getMessage());
+          
+            JOptionPane.showMessageDialog(null, "Não foi possível obter informações dos usuários!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+          }
+          
           try {
             try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("users.txt", true))) {
-              buffWrite.append(user + ";" + email + ";" + senha + "\n");
+              buffWrite.append(user + ";" + email + ";" + senha + ";" + new Date().getTime() + "\n");
               buffWrite.close();
             }
           } catch (IOException erro) {
@@ -155,6 +200,11 @@ public class screenRegister extends javax.swing.JFrame {
           }
           
           JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+          
+          inputUser.setText("");
+          inputEmail.setText("");
+          inputPassword.setText("");
+          inputConfirmPassword.setText("");
         }
     }//GEN-LAST:event_loginButtonMouseClicked
 
@@ -165,6 +215,11 @@ public class screenRegister extends javax.swing.JFrame {
     private void inputEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputEmailActionPerformed
+
+  private void returnButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnButtonMouseClicked
+    // TODO add your handling code here:
+    this.setVisible(false);
+  }//GEN-LAST:event_returnButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -215,6 +270,7 @@ public class screenRegister extends javax.swing.JFrame {
   private javax.swing.JButton loginButton;
   private javax.swing.JLabel passwordText;
   private javax.swing.JLabel pictureIcon;
+  private javax.swing.JButton returnButton;
   private javax.swing.JLabel userText;
   // End of variables declaration//GEN-END:variables
 }

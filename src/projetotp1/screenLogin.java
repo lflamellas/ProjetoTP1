@@ -151,19 +151,19 @@ public class screenLogin extends javax.swing.JFrame {
         }
         
         try (BufferedReader buffRead = new BufferedReader(new FileReader("users.txt"))) {
-          String linha = "";
+          String linha;
           boolean logou = false;
           String[] dados;
           
           while (true) {
+            linha = buffRead.readLine();
             if (linha != null) {
               dados = linha.split(";");
-              
-              logou = dados[0].equals(user) && dados[2].equals(password);
+              logou = dados[0].equals(user) && dados[2].equals(password) ? true : logou;
+              System.out.println(logou);
             } else {
               break;
             }
-            linha = buffRead.readLine();
           }
           
           if (logou) {
