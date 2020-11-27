@@ -140,10 +140,12 @@ public class screenAdminMenu extends javax.swing.JFrame {
 
     private void moviesManagementButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moviesManagementButtonMouseClicked
         // TODO add your handling code here:
+      new screenAdminMovieManagement().setVisible(true);
     }//GEN-LAST:event_moviesManagementButtonMouseClicked
 
     private void usersManagementButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersManagementButtonMouseClicked
         // TODO add your handling code here:
+      new screenAdminUserManagement().setVisible(true);
     }//GEN-LAST:event_usersManagementButtonMouseClicked
 
     /**
