@@ -5,7 +5,6 @@
  */
 package projetotp1;
 
-import classes.Usuario;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import static projetotp1.screenAdminUserManagement.listaDeUsuarios;
 
 /**
  *

@@ -7,10 +7,16 @@ package projetotp1;
 
 import classes.Usuario;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -90,8 +96,39 @@ public class screenAdminUserManagement extends javax.swing.JFrame {
         }
     }
     
-
-
+    public static void apagarArquivo() throws IOException {
+      File arquivo = new File("users.txt");
+      
+      arquivo.delete();
+    }
+    
+    public static void regravarArquivo() throws IOException {
+      String username;
+      String email;
+      String senha;
+      Date dataDeCriacao;
+      
+      apagarArquivo();
+      
+      for (int i = 0; i < listaDeUsuarios.size(); i++) {
+        Usuario user = listaDeUsuarios.get(i);
+        username = user.getUsername();
+        email = user.getEmail();
+        senha = user.getPassword();
+        dataDeCriacao = user.getDataDeCriacao();
+        
+        try {
+          try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("users.txt", true))) {
+            buffWrite.append(username + ";" + email + ";" + senha + ";" + dataDeCriacao.getTime() + "\n");
+            buffWrite.close();
+          }
+        } catch (IOException erro) {
+          System.out.println(erro.getMessage());
+          JOptionPane.showMessageDialog(null, "Não foi possível salvar os usuários!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+        }
+      }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,9 +150,9 @@ public class screenAdminUserManagement extends javax.swing.JFrame {
     confirmPasswordLabel = new javax.swing.JLabel();
     inputUsername = new javax.swing.JTextField();
     inputEmail = new javax.swing.JTextField();
-    inputPassword = new javax.swing.JTextField();
-    inputConfirmPassword = new javax.swing.JTextField();
     pageIcon = new javax.swing.JLabel();
+    inputPassword = new javax.swing.JPasswordField();
+    inputConfirmPassword = new javax.swing.JPasswordField();
     menu = new javax.swing.JPanel();
     leftRegion = new javax.swing.JPanel();
     backIcon = new javax.swing.JLabel();
@@ -145,6 +182,11 @@ public class screenAdminUserManagement extends javax.swing.JFrame {
         return types [columnIndex];
       }
     });
+    usersTable.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        usersTableMouseClicked(evt);
+      }
+    });
     jScrollPane1.setViewportView(usersTable);
     if (usersTable.getColumnModel().getColumnCount() > 0) {
       usersTable.getColumnModel().getColumn(0).setResizable(false);
@@ -153,6 +195,11 @@ public class screenAdminUserManagement extends javax.swing.JFrame {
     }
 
     addButton.setText("Add");
+    addButton.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        addButtonMouseClicked(evt);
+      }
+    });
     addButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         addButtonActionPerformed(evt);
@@ -215,10 +262,10 @@ public class screenAdminUserManagement extends javax.swing.JFrame {
               .addComponent(confirmPasswordLabel))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-              .addComponent(inputUsername)
+              .addComponent(inputUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
               .addComponent(inputEmail)
-              .addComponent(inputConfirmPassword)
-              .addComponent(inputPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)))
+              .addComponent(inputPassword)
+              .addComponent(inputConfirmPassword)))
           .addGroup(dashboardLayout.createSequentialGroup()
             .addGap(87, 87, 87)
             .addComponent(pageIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -353,6 +400,92 @@ public class screenAdminUserManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteButtonActionPerformed
 
+  private void usersTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersTableMouseClicked
+    // TODO add your handling code here:
+    int i = usersTable.getSelectedRow();
+    
+    if (i >= 0 && i < listaDeUsuarios.size()) {
+      Usuario usuario = listaDeUsuarios.get(i);
+      inputUsername.setText(usuario.getUsername());
+      inputEmail.setText(usuario.getEmail());
+    }
+    
+    addButton.setEnabled(true);
+    editButton.setEnabled(true);
+    deleteButton.setEnabled(true);
+  }//GEN-LAST:event_usersTableMouseClicked
+
+  private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
+    // TODO add your handling code here
+    if (inputEmail.getText().equals("") || inputUsername.getText().equals("")) {
+        JOptionPane.showMessageDialog(null, "Todos os campos devem ser inseridos!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+    } else if (inputPassword.getPassword().length < 6) {
+      JOptionPane.showMessageDialog(null, "A senha deverá ter no mínimo 6 caracteres!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+    } else if (!Arrays.toString(inputPassword.getPassword()).equals(Arrays.toString(inputConfirmPassword.getPassword()))) {
+      JOptionPane.showMessageDialog(null, "As senhas devem coincidir!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+    } else {
+      String user = inputUsername.getText();
+      String email = inputEmail.getText();
+      String senha = Arrays.toString(inputPassword.getPassword());
+
+      try (BufferedReader buffRead = new BufferedReader(new FileReader("users.txt"))) {
+        String linha;
+        String[] dados;
+
+        while (true) {
+          linha = buffRead.readLine();
+          if (linha != null) {
+            dados = linha.split(";");
+
+            if (dados[0].equals(user)) {
+              JOptionPane.showMessageDialog(null, "Usuário já existe!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+              return;
+            }
+
+            if (dados[1].equals(email)) {
+              JOptionPane.showMessageDialog(null, "E-mail já existe!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+              return;
+            }
+          } else {
+            break;
+          }
+        }
+
+        buffRead.close();
+
+      } catch (IOException erro) {
+        System.out.println(erro.getMessage());
+
+        JOptionPane.showMessageDialog(null, "Não foi possível obter informações dos usuários!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+      }
+
+//      try {
+//        try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("users.txt", true))) {
+//          buffWrite.append(user + ";" + email + ";" + senha + ";" + new Date().getTime() + "\n");
+//          buffWrite.close();
+//        }
+//      } catch (IOException erro) {
+//        System.out.println(erro.getMessage());
+//        JOptionPane.showMessageDialog(null, "Não foi possível realizar o cadastro!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+//      }
+      
+      listaDeUsuarios.add(new Usuario(user, email, senha, new Date()));
+      JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+      
+      carregarTabelaUsuarios();
+      try {
+        regravarArquivo();
+      } catch (IOException ex) {
+        Logger.getLogger(screenAdminUserManagement.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      
+      inputUsername.setText("");
+      inputEmail.setText("");
+      inputPassword.setText("");
+      inputConfirmPassword.setText("");
+    }
+  }//GEN-LAST:event_addButtonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -398,9 +531,9 @@ public class screenAdminUserManagement extends javax.swing.JFrame {
   private javax.swing.JButton editButton;
   private javax.swing.JLabel emailLabel;
   private javax.swing.JLabel exitIcon1;
-  private javax.swing.JTextField inputConfirmPassword;
+  private javax.swing.JPasswordField inputConfirmPassword;
   private javax.swing.JTextField inputEmail;
-  private javax.swing.JTextField inputPassword;
+  private javax.swing.JPasswordField inputPassword;
   private javax.swing.JTextField inputUsername;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JPanel leftRegion;
