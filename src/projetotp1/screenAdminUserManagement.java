@@ -207,6 +207,11 @@ public class screenAdminUserManagement extends javax.swing.JFrame {
     });
 
     editButton.setText("Edit");
+    editButton.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        editButtonMouseClicked(evt);
+      }
+    });
     editButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         editButtonActionPerformed(evt);
@@ -214,6 +219,11 @@ public class screenAdminUserManagement extends javax.swing.JFrame {
     });
 
     deleteButton.setText("Delete");
+    deleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        deleteButtonMouseClicked(evt);
+      }
+    });
     deleteButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         deleteButtonActionPerformed(evt);
@@ -458,16 +468,6 @@ public class screenAdminUserManagement extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(null, "Não foi possível obter informações dos usuários!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
       }
-
-//      try {
-//        try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("users.txt", true))) {
-//          buffWrite.append(user + ";" + email + ";" + senha + ";" + new Date().getTime() + "\n");
-//          buffWrite.close();
-//        }
-//      } catch (IOException erro) {
-//        System.out.println(erro.getMessage());
-//        JOptionPane.showMessageDialog(null, "Não foi possível realizar o cadastro!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
-//      }
       
       listaDeUsuarios.add(new Usuario(user, email, senha, new Date()));
       JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
@@ -485,6 +485,61 @@ public class screenAdminUserManagement extends javax.swing.JFrame {
       inputConfirmPassword.setText("");
     }
   }//GEN-LAST:event_addButtonMouseClicked
+
+  private void editButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonMouseClicked
+    // TODO add your handling code here:
+    if (inputEmail.getText().equals("") || inputUsername.getText().equals("")) {
+        JOptionPane.showMessageDialog(null, "Todos os campos devem ser inseridos!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+    } else if (inputPassword.getPassword().length < 6) {
+      JOptionPane.showMessageDialog(null, "A senha deverá ter no mínimo 6 caracteres!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+    } else if (!Arrays.toString(inputPassword.getPassword()).equals(Arrays.toString(inputConfirmPassword.getPassword()))) {
+      JOptionPane.showMessageDialog(null, "As senhas devem coincidir!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+    } else {
+      String username = inputUsername.getText();
+      String email = inputEmail.getText();
+      String password = Arrays.toString(inputPassword.getPassword());
+      
+      int index = usersTable.getSelectedRow();
+      
+      listaDeUsuarios.get(index).setUsername(username);
+      listaDeUsuarios.get(index).setEmail(email);
+      listaDeUsuarios.get(index).setPassword(password);
+      
+      JOptionPane.showMessageDialog(null, "Edição realizada com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+      
+      carregarTabelaUsuarios();
+      
+      try {
+        regravarArquivo();
+      } catch (IOException ex) {
+        Logger.getLogger(screenAdminUserManagement.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      
+      editButton.setEnabled(false);
+      deleteButton.setEnabled(false);
+    }
+  }//GEN-LAST:event_editButtonMouseClicked
+
+  private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
+    // TODO add your handling code here:
+    int index = usersTable.getSelectedRow();
+    
+    if (index >= 0 && index < listaDeUsuarios.size()) {
+      listaDeUsuarios.remove(index);
+      JOptionPane.showMessageDialog(null, "Remoção realizada com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    carregarTabelaUsuarios();
+    
+    editButton.setEnabled(false);
+    deleteButton.setEnabled(false);
+    
+    try {
+      regravarArquivo();
+    } catch (IOException ex) {
+      Logger.getLogger(screenAdminUserManagement.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }//GEN-LAST:event_deleteButtonMouseClicked
 
     /**
      * @param args the command line arguments
