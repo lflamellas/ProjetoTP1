@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/lflamellas/NetBeansProjects/ProjetoTP1/src/projetotp1/telaLogin.java</file>
+            <file>file:/Users/lflamellas/NetBeansProjects/ProjetoTP2/src/projetotp1/screenRegister.java</file>
+            <file>file:/Users/lflamellas/NetBeansProjects/ProjetoTP2/src/projetotp1/screenAdminMenu.java</file>
+            <file>file:/Users/lflamellas/NetBeansProjects/ProjetoTP2/src/projetotp1/screenAdminMovieManagement.java</file>
+            <file>file:/Users/lflamellas/NetBeansProjects/ProjetoTP2/src/projetotp1/screenUserMenu.java</file>
+            <file>file:/Users/lflamellas/NetBeansProjects/ProjetoTP2/src/projetotp1/screenLogin.java</file>
+            <file>file:/Users/lflamellas/NetBeansProjects/ProjetoTP2/src/projetotp1/screenAdminUserManagement.java</file>
         </group>
     </open-files>
 </project-private>
