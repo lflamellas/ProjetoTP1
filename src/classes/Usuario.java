@@ -3,12 +3,13 @@ package classes;
 import java.util.Date;
 
 public class Usuario {
+
   // Atributos
   protected String username;
   protected String email;
   protected String password;
   protected Date dataDeCriacao;
-  
+
   // Método construtor
   public Usuario(String username, String email, String password, Date dataDeCriacao) {
     this.username = username;
@@ -49,6 +50,4 @@ public class Usuario {
   public void setDataDeCriacao(Date dataDeCriacao) {
     this.dataDeCriacao = dataDeCriacao;
   }
-  
-  
 }

@@ -1,11 +1,14 @@
 package classes;
 
 public class Filme {
+
+  // Atributos
   private String titulo;
   private String genero;
   private int anoDeLancamento;
   private int rating;
 
+  // Método construtor
   public Filme(String titulo, String genero, int anoDeLancamento, int rating) {
     this.titulo = titulo;
     this.genero = genero;
@@ -13,6 +16,7 @@ public class Filme {
     this.rating = rating;
   }
 
+  // Métodos Getters e Setters
   public String getTitulo() {
     return titulo;
   }
