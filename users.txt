@@ -1,3 +1,2 @@
-pablo;pablo;[1, 2, 3, 4, 5, 6];1606517980799
 Guilherme;guilhermemds50@gmail.com;[1, 2, 3, 4, 5, 6];1606518158384
 Caio Mendes;caioom00@gmail.com;[1, 2, 3, 4, 5, 6];1606518305301

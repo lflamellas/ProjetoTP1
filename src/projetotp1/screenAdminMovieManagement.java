@@ -5,17 +5,123 @@
  */
 package projetotp1;
 
+import classes.Filme;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author lflamellas
  */
 public class screenAdminMovieManagement extends javax.swing.JFrame {
+  
+  static ArrayList<Filme> listaDeFilmes;
 
     /**
      * Creates new form screenAdminMenu
      */
     public screenAdminMovieManagement() {
         initComponents();
+        
+        listaDeFilmes = new ArrayList();
+        
+        editButton.setEnabled(false);
+        deleteButton.setEnabled(false);
+        
+        pegarFilmesDoArquivo();
+        carregarTabelaFilmes();
+    }
+    
+    private void carregarTabelaFilmes() {
+      DefaultTableModel modelo = new DefaultTableModel(new Object[] {"Movie Title", "Genre", "Launch Date", "Rating"}, 0);
+      
+      for (int i = 0; i < listaDeFilmes.size(); i++) {
+          Object linha[] = new Object[] {
+          listaDeFilmes.get(i).getTitulo(),
+          listaDeFilmes.get(i).getGenero(),
+          listaDeFilmes.get(i).getAnoDeLancamento(),
+          listaDeFilmes.get(i).getRating()
+        };
+        modelo.addRow(linha);
+      }
+      
+      moviesTable.setModel(modelo);
+    }
+    
+    public static void pegarFilmesDoArquivo() {
+      try (BufferedReader buffRead = new BufferedReader(new FileReader("movies.txt"))) {
+        String linha;
+        String[] dados;
+        
+        String title;
+        String genre;
+        int launchDate;
+        int rating;
+          
+        while (true) {
+          linha = buffRead.readLine();
+          if (linha != null) {
+            dados = linha.split(";");
+            title = dados[0];
+            genre = dados[1];
+            launchDate = Integer.parseInt(dados[2]);
+            rating = Integer.parseInt(dados[3]);
+            
+            Filme filme = new Filme(title, genre, launchDate, rating);
+            
+            listaDeFilmes.add(filme);
+          } else {
+            break;
+          }
+        }
+          
+        buffRead.close();
+        
+      } catch (IOException erro) {
+          System.out.println(erro.getMessage());
+          
+          JOptionPane.showMessageDialog(null, "Não foi possível obter informações dos filmes!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+    
+    public static void apagarArquivo() throws IOException {
+      File arquivo = new File("movies.txt");
+      
+      arquivo.delete();
+    }
+    
+    public static void regravarArquivo() throws IOException {
+      String title;
+      String genre;
+      int launchDate;
+      int rating;
+      
+      apagarArquivo();
+      
+      for (int i = 0; i < listaDeFilmes.size(); i++) {
+        Filme filme = listaDeFilmes.get(i);
+        title = filme.getTitulo();
+        genre = filme.getGenero();
+        launchDate = filme.getAnoDeLancamento();
+        rating = filme.getRating();
+        
+        try {
+          try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("movies.txt", true))) {
+            buffWrite.append(title + ";" + genre + ";" + launchDate + ";" + rating + "\n");
+            buffWrite.close();
+          }
+        } catch (IOException erro) {
+          System.out.println(erro.getMessage());
+          JOptionPane.showMessageDialog(null, "Não foi possível salvar os filmes!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+        }
+      }
     }
 
     /**
@@ -71,6 +177,11 @@ public class screenAdminMovieManagement extends javax.swing.JFrame {
       }
     });
     moviesTable.setColumnSelectionAllowed(true);
+    moviesTable.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        moviesTableMouseClicked(evt);
+      }
+    });
     jScrollPane1.setViewportView(moviesTable);
     moviesTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
     if (moviesTable.getColumnModel().getColumnCount() > 0) {
@@ -80,6 +191,11 @@ public class screenAdminMovieManagement extends javax.swing.JFrame {
     }
 
     addButton.setText("Add");
+    addButton.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        addButtonMouseClicked(evt);
+      }
+    });
     addButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         addButtonActionPerformed(evt);
@@ -87,6 +203,11 @@ public class screenAdminMovieManagement extends javax.swing.JFrame {
     });
 
     editButton.setText("Edit");
+    editButton.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        editButtonMouseClicked(evt);
+      }
+    });
     editButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         editButtonActionPerformed(evt);
@@ -94,6 +215,11 @@ public class screenAdminMovieManagement extends javax.swing.JFrame {
     });
 
     deleteButton.setText("Delete");
+    deleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        deleteButtonMouseClicked(evt);
+      }
+    });
     deleteButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         deleteButtonActionPerformed(evt);
@@ -287,6 +413,125 @@ public class screenAdminMovieManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteButtonActionPerformed
 
+  private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
+    // TODO add your handling code here:
+    if (inputMovieTitle.getText().equals("")) {
+        JOptionPane.showMessageDialog(null, "Todos os campos devem ser inseridos!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+    } else {
+        String title = inputMovieTitle.getText();
+        String genre = inputGenre.getValue().toString();
+        int launchDate = Integer.parseInt(inputLaunchDate.getValue().toString());
+        int rating = Integer.parseInt(inputRating.getValue().toString());
+
+        try (BufferedReader buffRead = new BufferedReader(new FileReader("movies.txt"))) {
+          String linha;
+          String[] dados;
+
+          while (true) {
+            linha = buffRead.readLine();
+            if (linha != null) {
+              dados = linha.split(";");
+
+              if (dados[0].equals(title)) {
+                JOptionPane.showMessageDialog(null, "Filme já existe!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+                return;
+              }
+            } else {
+              break;
+            }
+          }
+
+          buffRead.close();
+
+        } catch (IOException erro) {
+          System.out.println(erro.getMessage());
+
+          JOptionPane.showMessageDialog(null, "Não foi possível obter informações dos filmes!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+        }
+
+        listaDeFilmes.add(new Filme(title, genre, launchDate, rating));
+        JOptionPane.showMessageDialog(null, "Filme cadastrado com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+
+        carregarTabelaFilmes();
+        try {
+          regravarArquivo();
+        } catch (IOException ex) {
+//          Logger.getLogger(screenAdminUserManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        inputMovieTitle.setText("");
+      }
+  }//GEN-LAST:event_addButtonMouseClicked
+
+  private void editButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonMouseClicked
+    // TODO add your handling code here:
+    if (inputMovieTitle.getText().equals("")) {
+        JOptionPane.showMessageDialog(null, "Todos os campos devem ser inseridos!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+    } else {
+      String title = inputMovieTitle.getText();
+      String genre = inputGenre.getValue().toString();
+      int launchDate = Integer.parseInt(inputLaunchDate.getValue().toString());
+      int rating = Integer.parseInt(inputRating.getValue().toString());
+      
+      int index = moviesTable.getSelectedRow();
+      
+      listaDeFilmes.get(index).setTitulo(title);
+      listaDeFilmes.get(index).setGenero(genre);
+      listaDeFilmes.get(index).setAnoDeLancamento(launchDate);
+      listaDeFilmes.get(index).setRating(rating);
+
+      JOptionPane.showMessageDialog(null, "Edição realizada com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+      
+      carregarTabelaFilmes();
+      
+      try {
+        regravarArquivo();
+      } catch (IOException ex) {
+//        Logger.getLogger(screenAdminUserManagement.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      
+      editButton.setEnabled(false);
+      deleteButton.setEnabled(false);
+    }
+  }//GEN-LAST:event_editButtonMouseClicked
+
+  private void moviesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moviesTableMouseClicked
+    // TODO add your handling code here:
+    int i = moviesTable.getSelectedRow();
+    
+    if (i >= 0 && i < listaDeFilmes.size()) {
+      Filme filme = listaDeFilmes.get(i);
+      inputMovieTitle.setText(filme.getTitulo());
+      inputGenre.setValue(filme.getGenero());
+      inputLaunchDate.setValue(filme.getAnoDeLancamento());
+      inputRating.setValue(filme.getRating());
+    }
+    
+    addButton.setEnabled(true);
+    editButton.setEnabled(true);
+    deleteButton.setEnabled(true);
+  }//GEN-LAST:event_moviesTableMouseClicked
+
+  private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
+    int index = moviesTable.getSelectedRow();
+    
+    if (index >= 0 && index < listaDeFilmes.size()) {
+      listaDeFilmes.remove(index);
+      JOptionPane.showMessageDialog(null, "Remoção realizada com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    carregarTabelaFilmes();
+    
+    editButton.setEnabled(false);
+    deleteButton.setEnabled(false);
+    
+    try {
+      regravarArquivo();
+    } catch (IOException ex) {
+//      Logger.getLogger(screenAdminUserManagement.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }//GEN-LAST:event_deleteButtonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -318,10 +563,8 @@ public class screenAdminMovieManagement extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new screenAdminMovieManagement().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+          new screenAdminMovieManagement().setVisible(true);
         });
     }
 
