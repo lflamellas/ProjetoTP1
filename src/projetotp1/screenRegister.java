@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
+// Classe do componente da tela de cadastro
 public class screenRegister extends javax.swing.JFrame {
 
   public screenRegister() {

@@ -1,5 +1,6 @@
 package classes;
 
+// Classe representando a entidade de Filme do nosso projeto
 public class Filme {
 
   // Atributos

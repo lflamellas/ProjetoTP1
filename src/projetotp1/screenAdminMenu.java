@@ -1,5 +1,6 @@
 package projetotp1;
 
+// Classe do componente de menu do admin
 public class screenAdminMenu extends javax.swing.JFrame {
 
   public screenAdminMenu() {

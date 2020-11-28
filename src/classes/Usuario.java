@@ -2,6 +2,7 @@ package classes;
 
 import java.util.Date;
 
+// Classe representando a entidade de usuário do nosso projeto
 public class Usuario {
 
   // Atributos

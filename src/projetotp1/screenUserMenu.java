@@ -1,5 +1,6 @@
 package projetotp1;
 
+// Classe do componente da tela do usuário
 public class screenUserMenu extends javax.swing.JFrame {
 
   public screenUserMenu() {

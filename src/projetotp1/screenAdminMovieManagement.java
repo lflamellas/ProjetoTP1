@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+// Classe do componente de administração de filmes do admin
 public class screenAdminMovieManagement extends javax.swing.JFrame {
 
   // Array de filmes

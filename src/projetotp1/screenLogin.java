@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
+// Classe do componente da tela de login
 public class screenLogin extends javax.swing.JFrame {
 
   public screenLogin() {

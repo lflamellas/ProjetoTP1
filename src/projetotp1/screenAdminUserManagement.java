@@ -13,6 +13,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+// Classe do componente de administração de usuários do admin
 public class screenAdminUserManagement extends javax.swing.JFrame {
 
   // Lista de usuários
