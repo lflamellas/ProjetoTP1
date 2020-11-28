@@ -50,7 +50,6 @@ public class screenLogin extends javax.swing.JFrame {
         registerButton = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(400, 500));
         setResizable(false);
         setSize(new java.awt.Dimension(400, 500));
 
@@ -79,9 +78,9 @@ public class screenLogin extends javax.swing.JFrame {
         userText.setFont(new java.awt.Font("Cambay Devanagari", 1, 14)); // NOI18N
         userText.setForeground(new java.awt.Color(255, 255, 255));
         userText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        userText.setText("USER");
+        userText.setText("USERNAME");
 
-        inputUser.setBackground(new java.awt.Color(1, 21, 38));
+        inputUser.setBackground(new java.awt.Color(1, 34, 53));
         inputUser.setFont(new java.awt.Font("Andale Mono", 0, 14)); // NOI18N
         inputUser.setForeground(new java.awt.Color(255, 255, 255));
         inputUser.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, null, java.awt.Color.white, null, null));
@@ -96,7 +95,7 @@ public class screenLogin extends javax.swing.JFrame {
         passwordText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         passwordText.setText("PASSWORD");
 
-        inputPassword.setBackground(new java.awt.Color(1, 21, 38));
+        inputPassword.setBackground(new java.awt.Color(1, 34, 53));
         inputPassword.setForeground(new java.awt.Color(255, 255, 255));
         inputPassword.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         inputPassword.setMinimumSize(new java.awt.Dimension(5, 21));
@@ -109,12 +108,12 @@ public class screenLogin extends javax.swing.JFrame {
         pictureIcon.setForeground(new java.awt.Color(255, 255, 255));
         pictureIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pictureIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clapperboard (1).png"))); // NOI18N
-        pictureIcon.setPreferredSize(new java.awt.Dimension(128, 128));
 
         loginButton.setBackground(new java.awt.Color(150, 179, 217));
         loginButton.setFont(new java.awt.Font("Cambay Devanagari", 1, 14)); // NOI18N
         loginButton.setForeground(new java.awt.Color(1, 21, 38));
         loginButton.setText("LOGIN");
+        loginButton.setFocusPainted(false);
         loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 loginButtonMouseClicked(evt);
@@ -138,46 +137,43 @@ public class screenLogin extends javax.swing.JFrame {
         loginRegionLayout.setHorizontalGroup(
             loginRegionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginRegionLayout.createSequentialGroup()
+                .addGap(141, 141, 141)
                 .addGroup(loginRegionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(loginRegionLayout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addGroup(loginRegionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(passwordText)
-                            .addComponent(userText))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(loginRegionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(loginRegionLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(registerButton))
-                            .addComponent(registerMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputUser, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pictureIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(loginRegionLayout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addComponent(loginButton)))
-                .addContainerGap(126, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addComponent(passwordText))
+                    .addGroup(loginRegionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(pictureIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(loginButton)
+                        .addComponent(registerMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(registerButton)
+                        .addComponent(inputUser, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, loginRegionLayout.createSequentialGroup()
+                            .addGap(7, 7, 7)
+                            .addComponent(userText))))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         loginRegionLayout.setVerticalGroup(
             loginRegionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginRegionLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(pictureIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(loginRegionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userText))
+                .addComponent(pictureIcon)
+                .addGap(28, 28, 28)
+                .addComponent(userText)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(inputUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(loginRegionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passwordText)
-                    .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(passwordText)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(loginButton)
-                .addGap(49, 49, 49)
+                .addGap(36, 36, 36)
                 .addComponent(registerMessage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(registerButton)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         dashboard.add(loginRegion, java.awt.BorderLayout.CENTER);
