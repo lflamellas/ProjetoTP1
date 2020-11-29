@@ -196,7 +196,6 @@ public class screenLogin extends javax.swing.JFrame {
             if (linha != null) {
               dados = linha.split(";");
               logou = dados[0].equals(user) && dados[2].equals(password) ? true : logou;
-              System.out.println(logou);
             } else {
               break;
             }
