@@ -2,5 +2,6 @@
 /dist/
 
 users.txt
+movies.txt
 
 /nbproject/private/private.xml

@@ -1,6 +1,8 @@
 package projetotp1;
 
 import classes.Filme;
+import classes.UsersFavoriteMovies;
+import classes.Usuario;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,29 +17,45 @@ import javax.swing.table.DefaultTableModel;
 public class screenUserFavorites extends javax.swing.JFrame {
 
   // Array de filmes
-  static ArrayList<Filme> listaDeFilmes;
+  static ArrayList<UsersFavoriteMovies> listaDeFilmesFavoritados;
+  static ArrayList<UsersFavoriteMovies> listaDeFilmesFavoritadosCompleta;
+  // Usuário
+  static String username;
 
   public screenUserFavorites() {
     initComponents();
 
-    listaDeFilmes = new ArrayList();
+    listaDeFilmesFavoritados = new ArrayList();
+    listaDeFilmesFavoritadosCompleta = new ArrayList();
 
     removeButton.setEnabled(false);
+    
+    pegarNomeDoUsuarioLogado();
+    pegarFilmesFavoritadosDoArquivo();
+    carregarTabelaFilmesFavoritados();
+  }
+  
+  private void pegarNomeDoUsuarioLogado() {
+    try (BufferedReader buffRead = new BufferedReader(new FileReader("loggeduser.txt"))) {
+      String linha = buffRead.readLine();
+      username = linha;
+    } catch (IOException erro) {
+      System.out.println(erro.getMessage());
 
-    pegarFilmesDoArquivo();
-    carregarTabelaFilmes();
+      JOptionPane.showMessageDialog(null, "Não foi possível obter informações dos filmes favoritados!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+    }
   }
 
-  // Método responsável por carregar a tabela de filmes
-  private void carregarTabelaFilmes() {
+  // Método responsável por carregar a tabela de filmes favoritados
+  private void carregarTabelaFilmesFavoritados() {
     DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Movie Title", "Genre", "Launch Date", "Rating"}, 0);
 
-    for (int i = 0; i < listaDeFilmes.size(); i++) {
+    for (int i = 0; i < listaDeFilmesFavoritados.size(); i++) {
       Object linha[] = new Object[]{
-        listaDeFilmes.get(i).getTitulo(),
-        listaDeFilmes.get(i).getGenero(),
-        listaDeFilmes.get(i).getAnoDeLancamento(),
-        listaDeFilmes.get(i).getRating()
+        listaDeFilmesFavoritados.get(i).getFilme().getTitulo(),
+        listaDeFilmesFavoritados.get(i).getFilme().getGenero(),
+        listaDeFilmesFavoritados.get(i).getFilme().getAnoDeLancamento(),
+        listaDeFilmesFavoritados.get(i).getFilme().getRating()
       };
       modelo.addRow(linha);
     }
@@ -45,9 +63,9 @@ public class screenUserFavorites extends javax.swing.JFrame {
     moviesTable.setModel(modelo);
   }
 
-  // Método responsável por coletar os filmes do arquivo
-  public static void pegarFilmesDoArquivo() {
-    try (BufferedReader buffRead = new BufferedReader(new FileReader("movies.txt"))) {
+  // Método responsável por coletar os filmes favoritados do arquivo
+  public static void pegarFilmesFavoritadosDoArquivo() {
+    try (BufferedReader buffRead = new BufferedReader(new FileReader("usersfavoritemovies.txt"))) {
       String linha;
       String[] dados;
 
@@ -60,14 +78,24 @@ public class screenUserFavorites extends javax.swing.JFrame {
         linha = buffRead.readLine();
         if (linha != null) {
           dados = linha.split(";");
-          title = dados[0];
-          genre = dados[1];
-          launchDate = Integer.parseInt(dados[2]);
-          rating = Integer.parseInt(dados[3]);
+          title = dados[1];
+          genre = dados[2];
+          launchDate = Integer.parseInt(dados[3]);
+          rating = Integer.parseInt(dados[4]);
+          
+          if (dados[0].equals(username)) {
+            Filme filme = new Filme(title, genre, launchDate, rating);
+          
+            UsersFavoriteMovies filmeFavorito = new UsersFavoriteMovies(username, filme);
 
-          Filme filme = new Filme(title, genre, launchDate, rating);
-
-          listaDeFilmes.add(filme);
+            listaDeFilmesFavoritados.add(filmeFavorito);
+          } else {
+            Filme filme = new Filme(title, genre, launchDate, rating);
+            
+            UsersFavoriteMovies filmeFavoritoDeOutroUsuario = new UsersFavoriteMovies(dados[0], filme);
+            
+            listaDeFilmesFavoritadosCompleta.add(filmeFavoritoDeOutroUsuario);
+          }
         } else {
           break;
         }
@@ -78,41 +106,61 @@ public class screenUserFavorites extends javax.swing.JFrame {
     } catch (IOException erro) {
       System.out.println(erro.getMessage());
 
-      JOptionPane.showMessageDialog(null, "Não foi possível obter informações dos filmes!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+      JOptionPane.showMessageDialog(null, "Não foi possível obter informações dos filmes favoritados!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
     }
   }
 
   // Método responsável por deletar o arquivo
   public static void apagarArquivo() throws IOException {
-    File arquivo = new File("movies.txt");
+    File arquivo = new File("usersfavoritemovies.txt");
 
     arquivo.delete();
   }
 
   // Método responsável por regravar o arquivo com os dados modificados
   public static void regravarArquivo() throws IOException {
+    String nomeDoUsuario;
     String title;
     String genre;
     int launchDate;
     int rating;
 
     apagarArquivo();
-
-    for (int i = 0; i < listaDeFilmes.size(); i++) {
-      Filme filme = listaDeFilmes.get(i);
-      title = filme.getTitulo();
-      genre = filme.getGenero();
-      launchDate = filme.getAnoDeLancamento();
-      rating = filme.getRating();
+    
+    for (int i = 0; i < listaDeFilmesFavoritadosCompleta.size(); i++) {
+      UsersFavoriteMovies filmeFavoritado = listaDeFilmesFavoritadosCompleta.get(i);
+      nomeDoUsuario = filmeFavoritado.getUsername();
+      title = filmeFavoritado.getFilme().getTitulo();
+      genre = filmeFavoritado.getFilme().getGenero();
+      launchDate = filmeFavoritado.getFilme().getAnoDeLancamento();
+      rating = filmeFavoritado.getFilme().getRating();
 
       try {
-        try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("movies.txt", true))) {
-          buffWrite.append(title + ";" + genre + ";" + launchDate + ";" + rating + "\n");
+        try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("usersfavoritemovies.txt", true))) {
+          buffWrite.append(nomeDoUsuario + ";" + title + ";" + genre + ";" + launchDate + ";" + rating + "\n");
           buffWrite.close();
         }
       } catch (IOException erro) {
         System.out.println(erro.getMessage());
-        JOptionPane.showMessageDialog(null, "Não foi possível salvar os filmes!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Não foi possível salvar os filmes favoritados!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+      }
+    }
+
+    for (int i = 0; i < listaDeFilmesFavoritados.size(); i++) {
+      UsersFavoriteMovies filmeFavoritado = listaDeFilmesFavoritados.get(i);
+      title = filmeFavoritado.getFilme().getTitulo();
+      genre = filmeFavoritado.getFilme().getGenero();
+      launchDate = filmeFavoritado.getFilme().getAnoDeLancamento();
+      rating = filmeFavoritado.getFilme().getRating();
+
+      try {
+        try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("usersfavoritemovies.txt", true))) {
+          buffWrite.append(username + ";" + title + ";" + genre + ";" + launchDate + ";" + rating + "\n");
+          buffWrite.close();
+        }
+      } catch (IOException erro) {
+        System.out.println(erro.getMessage());
+        JOptionPane.showMessageDialog(null, "Não foi possível salvar os filmes favoritados!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
       }
     }
   }
@@ -362,7 +410,23 @@ public class screenUserFavorites extends javax.swing.JFrame {
     }//GEN-LAST:event_removeButtonActionPerformed
 
     private void removeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeButtonMouseClicked
-        
+      int index = moviesTable.getSelectedRow();
+
+        if (index >= 0 && index < listaDeFilmesFavoritados.size()) {
+            listaDeFilmesFavoritados.remove(index);
+            JOptionPane.showMessageDialog(null, "Desfavoritado com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+        }
+
+        carregarTabelaFilmesFavoritados();
+
+        removeButton.setEnabled(false);
+
+        try {
+            regravarArquivo();
+        } catch (IOException erro) {
+            System.out.println(erro.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possível salvar as modificações!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_removeButtonMouseClicked
 
   /**

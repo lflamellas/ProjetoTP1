@@ -1,13 +1,18 @@
 package projetotp1;
 
+import classes.Usuario;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 // Classe do componente da tela de login
 public class screenLogin extends javax.swing.JFrame {
+  
+//  static Usuario user;
 
   public screenLogin() {
     initComponents();
@@ -204,6 +209,17 @@ public class screenLogin extends javax.swing.JFrame {
           if (logou) {
             this.setVisible(false);
             new screenUserMenu().setVisible(true);
+
+            try {
+              try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("loggeduser.txt"))) {
+                buffWrite.append(inputUser.getText() + "\n");
+                buffWrite.close();
+              }
+            } catch (IOException erro) {
+              System.out.println(erro.getMessage());
+              JOptionPane.showMessageDialog(null, "Não foi possível salvar o usuário!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+            }
+
           } else {
             JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
           }

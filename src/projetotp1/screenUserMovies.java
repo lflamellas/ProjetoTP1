@@ -17,6 +17,8 @@ public class screenUserMovies extends javax.swing.JFrame {
   // Array de filmes
   static ArrayList<Filme> listaDeFilmes;
 
+  static String username;
+
   public screenUserMovies() {
     initComponents();
 
@@ -25,8 +27,20 @@ public class screenUserMovies extends javax.swing.JFrame {
     commentButton.setEnabled(false);
     favoriteButton.setEnabled(false);
 
+    pegarNomeDoUsuarioLogado();
     pegarFilmesDoArquivo();
     carregarTabelaFilmes();
+  }
+
+  private void pegarNomeDoUsuarioLogado() {
+    try (BufferedReader buffRead = new BufferedReader(new FileReader("loggeduser.txt"))) {
+      String linha = buffRead.readLine();
+      username = linha;
+    } catch (IOException erro) {
+      System.out.println(erro.getMessage());
+
+      JOptionPane.showMessageDialog(null, "Não foi possível obter informações dos filmes favoritados!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+    }
   }
 
   // Método responsável por carregar a tabela de filmes
@@ -424,7 +438,8 @@ public class screenUserMovies extends javax.swing.JFrame {
 
   private void commentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_commentButtonMouseClicked
     // TODO add your handling code here:
-    
+    JOptionPane.showMessageDialog(null, "Comentário adicionado com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+    inputComment.setText("");
   }//GEN-LAST:event_commentButtonMouseClicked
 
   private void moviesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moviesTableMouseClicked
@@ -433,11 +448,57 @@ public class screenUserMovies extends javax.swing.JFrame {
   }//GEN-LAST:event_moviesTableMouseClicked
 
     private void favoriteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favoriteButtonActionPerformed
-        // TODO add your handling code here:
+      // TODO add your handling code here:
     }//GEN-LAST:event_favoriteButtonActionPerformed
 
     private void favoriteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_favoriteButtonMouseClicked
-        
+      int i = moviesTable.getSelectedRow();
+
+      Filme filme;
+
+      if (i >= 0 && i < listaDeFilmes.size()) {
+        filme = listaDeFilmes.get(i);
+
+        try (BufferedReader buffRead = new BufferedReader(new FileReader("usersfavoritemovies.txt"))) {
+          String linha;
+          String[] dados;
+
+          String title;
+
+          while (true) {
+            linha = buffRead.readLine();
+            if (linha != null) {
+              dados = linha.split(";");
+              title = dados[1];
+
+              if (title.equals(filme.getTitulo())) {
+                JOptionPane.showMessageDialog(null, "Filme já foi favoritado!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+                return;
+              }
+            } else {
+              break;
+            }
+          }
+
+          buffRead.close();
+
+        } catch (IOException erro) {
+          System.out.println(erro.getMessage());
+
+          JOptionPane.showMessageDialog(null, "Não foi possível obter informações dos filmes!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+        }
+
+        try {
+          try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("usersfavoritemovies.txt", true))) {
+            buffWrite.append(username + ";" + filme.getTitulo() + ";" + filme.getGenero() + ";" + filme.getAnoDeLancamento() + ";" + filme.getRating() + "\n");
+            JOptionPane.showMessageDialog(null, "Filme favoritado com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+            buffWrite.close();
+          }
+        } catch (IOException erro) {
+          System.out.println(erro.getMessage());
+          JOptionPane.showMessageDialog(null, "Não foi possível favoritar!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+        }
+      }
     }//GEN-LAST:event_favoriteButtonMouseClicked
 
   /**
