@@ -12,85 +12,88 @@ public class screenAdminMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         dashboard = new javax.swing.JPanel();
-        moviesManagementButton = new javax.swing.JLabel();
         usersManagementButton = new javax.swing.JLabel();
+        moviesManagementButton = new javax.swing.JLabel();
         menu = new javax.swing.JPanel();
         leftRegion = new javax.swing.JPanel();
-        backIcon = new javax.swing.JLabel();
         rightRegion = new javax.swing.JPanel();
-        exitIcon1 = new javax.swing.JLabel();
+        exitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 500));
 
-        dashboard.setBackground(new java.awt.Color(39, 40, 64));
-        dashboard.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null), "ADMIN MENU", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(255, 255, 255))); // NOI18N
-        dashboard.setLayout(null);
+        dashboard.setBackground(new java.awt.Color(1, 21, 38));
+        dashboard.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(150, 179, 217), null), "ADMIN MENU", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambay Devanagari", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        dashboard.setLayout(new java.awt.GridLayout());
 
-        moviesManagementButton.setForeground(new java.awt.Color(255, 255, 255));
-        moviesManagementButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        moviesManagementButton.setText("MOVIES MANAGEMENT");
-        moviesManagementButton.setSize(new java.awt.Dimension(256, 256));
-        moviesManagementButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                moviesManagementButtonMouseClicked(evt);
-            }
-        });
-        dashboard.add(moviesManagementButton);
-        moviesManagementButton.setBounds(420, 60, 256, 256);
-
+        usersManagementButton.setFont(new java.awt.Font("Cambay Devanagari", 1, 18)); // NOI18N
         usersManagementButton.setForeground(new java.awt.Color(255, 255, 255));
         usersManagementButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        usersManagementButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/customer.png"))); // NOI18N
         usersManagementButton.setText("USER MANAGEMENT");
-        usersManagementButton.setSize(new java.awt.Dimension(256, 256));
+        usersManagementButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        usersManagementButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         usersManagementButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 usersManagementButtonMouseClicked(evt);
             }
         });
         dashboard.add(usersManagementButton);
-        usersManagementButton.setBounds(100, 60, 256, 256);
+
+        moviesManagementButton.setFont(new java.awt.Font("Cambay Devanagari", 1, 18)); // NOI18N
+        moviesManagementButton.setForeground(new java.awt.Color(255, 255, 255));
+        moviesManagementButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        moviesManagementButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/film-reel (1).png"))); // NOI18N
+        moviesManagementButton.setText("MOVIES MANAGEMENT");
+        moviesManagementButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        moviesManagementButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        moviesManagementButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                moviesManagementButtonMouseClicked(evt);
+            }
+        });
+        dashboard.add(moviesManagementButton);
 
         getContentPane().add(dashboard, java.awt.BorderLayout.CENTER);
 
-        menu.setBackground(new java.awt.Color(39, 40, 64));
+        menu.setBackground(new java.awt.Color(1, 21, 38));
         menu.setPreferredSize(new java.awt.Dimension(800, 50));
         menu.setLayout(new java.awt.BorderLayout());
 
-        leftRegion.setBackground(new java.awt.Color(39, 40, 64));
+        leftRegion.setBackground(new java.awt.Color(1, 21, 38));
         leftRegion.setPreferredSize(new java.awt.Dimension(50, 50));
-
-        backIcon.setForeground(new java.awt.Color(255, 255, 255));
-        backIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        backIcon.setText("ICON");
 
         javax.swing.GroupLayout leftRegionLayout = new javax.swing.GroupLayout(leftRegion);
         leftRegion.setLayout(leftRegionLayout);
         leftRegionLayout.setHorizontalGroup(
             leftRegionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(leftRegionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(backIcon)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 50, Short.MAX_VALUE)
         );
         leftRegionLayout.setVerticalGroup(
             leftRegionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(leftRegionLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(backIcon)
-                .addContainerGap(20, Short.MAX_VALUE))
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
         menu.add(leftRegion, java.awt.BorderLayout.LINE_START);
 
-        rightRegion.setBackground(new java.awt.Color(39, 40, 64));
-        rightRegion.setPreferredSize(new java.awt.Dimension(50, 50));
+        rightRegion.setBackground(new java.awt.Color(1, 21, 38));
+        rightRegion.setPreferredSize(new java.awt.Dimension(100, 50));
 
-        exitIcon1.setForeground(new java.awt.Color(255, 255, 255));
-        exitIcon1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        exitIcon1.setText("ICON");
-        exitIcon1.addMouseListener(new java.awt.event.MouseAdapter() {
+        exitButton.setBackground(new java.awt.Color(1, 21, 38));
+        exitButton.setFont(new java.awt.Font("Lucida Grande", 1, 15)); // NOI18N
+        exitButton.setForeground(new java.awt.Color(150, 179, 217));
+        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout.png"))); // NOI18N
+        exitButton.setBorderPainted(false);
+        exitButton.setContentAreaFilled(false);
+        exitButton.setFocusPainted(false);
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                exitIcon1MouseClicked(evt);
+                exitButtonMouseClicked(evt);
+            }
+        });
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
             }
         });
 
@@ -98,17 +101,16 @@ public class screenAdminMenu extends javax.swing.JFrame {
         rightRegion.setLayout(rightRegionLayout);
         rightRegionLayout.setHorizontalGroup(
             rightRegionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rightRegionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(exitIcon1)
-                .addContainerGap(11, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightRegionLayout.createSequentialGroup()
+                .addContainerGap(46, Short.MAX_VALUE)
+                .addComponent(exitButton)
+                .addContainerGap())
         );
         rightRegionLayout.setVerticalGroup(
             rightRegionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rightRegionLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(exitIcon1)
-                .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightRegionLayout.createSequentialGroup()
+                .addGap(0, 6, Short.MAX_VALUE)
+                .addComponent(exitButton))
         );
 
         menu.add(rightRegion, java.awt.BorderLayout.LINE_END);
@@ -118,17 +120,25 @@ public class screenAdminMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exitIcon1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitIcon1MouseClicked
-      // TODO add your handling code here:
-    }//GEN-LAST:event_exitIcon1MouseClicked
-
     private void moviesManagementButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moviesManagementButtonMouseClicked
-      new screenAdminMovieManagement().setVisible(true);
+        this.setVisible(false);
+        new screenAdminMovieManagement().setVisible(true);
     }//GEN-LAST:event_moviesManagementButtonMouseClicked
 
     private void usersManagementButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersManagementButtonMouseClicked
-      new screenAdminUserManagement().setVisible(true);
+        this.setVisible(false);
+        new screenAdminUserManagement().setVisible(true);
     }//GEN-LAST:event_usersManagementButtonMouseClicked
+
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new screenLogin().setVisible(true);
+    }//GEN-LAST:event_exitButtonMouseClicked
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exitButtonActionPerformed
 
   public static void main(String args[]) {
     /* Set the Nimbus look and feel */
@@ -154,9 +164,8 @@ public class screenAdminMenu extends javax.swing.JFrame {
     });
   }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel backIcon;
     private javax.swing.JPanel dashboard;
-    private javax.swing.JLabel exitIcon1;
+    private javax.swing.JButton exitButton;
     private javax.swing.JPanel leftRegion;
     private javax.swing.JPanel menu;
     private javax.swing.JLabel moviesManagementButton;
