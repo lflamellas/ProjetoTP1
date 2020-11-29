@@ -2,7 +2,6 @@ package projetotp1;
 
 import classes.Filme;
 import classes.UsersFavoriteMovies;
-import classes.Usuario;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,16 +24,25 @@ public class screenUserFavorites extends javax.swing.JFrame {
   public screenUserFavorites() {
     initComponents();
 
+    try {
+      try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("usersfavoritemovies.txt", true))) {
+        buffWrite.close();
+      }
+    } catch (IOException erro) {
+      System.out.println(erro.getMessage());
+      JOptionPane.showMessageDialog(null, "Não foi possível salvar os filmes favoritados!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+    }
+
     listaDeFilmesFavoritados = new ArrayList();
     listaDeFilmesFavoritadosCompleta = new ArrayList();
 
     removeButton.setEnabled(false);
-    
+
     pegarNomeDoUsuarioLogado();
     pegarFilmesFavoritadosDoArquivo();
     carregarTabelaFilmesFavoritados();
   }
-  
+
   private void pegarNomeDoUsuarioLogado() {
     try (BufferedReader buffRead = new BufferedReader(new FileReader("loggeduser.txt"))) {
       String linha = buffRead.readLine();
@@ -82,18 +90,18 @@ public class screenUserFavorites extends javax.swing.JFrame {
           genre = dados[2];
           launchDate = Integer.parseInt(dados[3]);
           rating = Integer.parseInt(dados[4]);
-          
+
           if (dados[0].equals(username)) {
             Filme filme = new Filme(title, genre, launchDate, rating);
-          
+
             UsersFavoriteMovies filmeFavorito = new UsersFavoriteMovies(username, filme);
 
             listaDeFilmesFavoritados.add(filmeFavorito);
           } else {
             Filme filme = new Filme(title, genre, launchDate, rating);
-            
+
             UsersFavoriteMovies filmeFavoritoDeOutroUsuario = new UsersFavoriteMovies(dados[0], filme);
-            
+
             listaDeFilmesFavoritadosCompleta.add(filmeFavoritoDeOutroUsuario);
           }
         } else {
@@ -126,7 +134,7 @@ public class screenUserFavorites extends javax.swing.JFrame {
     int rating;
 
     apagarArquivo();
-    
+
     for (int i = 0; i < listaDeFilmesFavoritadosCompleta.size(); i++) {
       UsersFavoriteMovies filmeFavoritado = listaDeFilmesFavoritadosCompleta.get(i);
       nomeDoUsuario = filmeFavoritado.getUsername();
@@ -406,27 +414,27 @@ public class screenUserFavorites extends javax.swing.JFrame {
   }//GEN-LAST:event_moviesTableMouseClicked
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
-        // TODO add your handling code here:
+      // TODO add your handling code here:
     }//GEN-LAST:event_removeButtonActionPerformed
 
     private void removeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeButtonMouseClicked
       int index = moviesTable.getSelectedRow();
 
-        if (index >= 0 && index < listaDeFilmesFavoritados.size()) {
-            listaDeFilmesFavoritados.remove(index);
-            JOptionPane.showMessageDialog(null, "Desfavoritado com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
-        }
+      if (index >= 0 && index < listaDeFilmesFavoritados.size()) {
+        listaDeFilmesFavoritados.remove(index);
+        JOptionPane.showMessageDialog(null, "Desfavoritado com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+      }
 
-        carregarTabelaFilmesFavoritados();
+      carregarTabelaFilmesFavoritados();
 
-        removeButton.setEnabled(false);
+      removeButton.setEnabled(false);
 
-        try {
-            regravarArquivo();
-        } catch (IOException erro) {
-            System.out.println(erro.getMessage());
-            JOptionPane.showMessageDialog(null, "Não foi possível salvar as modificações!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
-        }
+      try {
+        regravarArquivo();
+      } catch (IOException erro) {
+        System.out.println(erro.getMessage());
+        JOptionPane.showMessageDialog(null, "Não foi possível salvar as modificações!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+      }
     }//GEN-LAST:event_removeButtonMouseClicked
 
   /**

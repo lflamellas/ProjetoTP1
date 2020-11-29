@@ -1,4 +1,0 @@
-Ana Lindaa;ana@gmail.com;[1, 2, 3, 4, 5, 6];1606596446834
-lflamellas;luis@gmail.com;[1, 2, 3, 4, 5, 6];1606659400842
-milena<3;millena.diamond11@gmail.com;[s, e, n, h, a, 1, 2, 3];1606664614851
-Caio Mendes;caioom00@gmail.com;[1, 2, 3, 4, 5, 6];1606670394359

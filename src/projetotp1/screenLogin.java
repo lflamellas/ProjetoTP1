@@ -16,6 +16,24 @@ public class screenLogin extends javax.swing.JFrame {
 
   public screenLogin() {
     initComponents();
+    
+    try {
+      try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("users.txt", true))) {
+        buffWrite.close();
+      }
+    } catch (IOException erro) {
+      System.out.println(erro.getMessage());
+      JOptionPane.showMessageDialog(null, "Não foi possível salvar os filmes favoritados!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    try {
+      try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("movies.txt", true))) {
+        buffWrite.close();
+      }
+    } catch (IOException erro) {
+      System.out.println(erro.getMessage());
+      JOptionPane.showMessageDialog(null, "Não foi possível salvar os filmes favoritados!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+    }
   }
 
   /**
