@@ -24,7 +24,7 @@ public class screenAdminMenu extends javax.swing.JFrame {
 
         dashboard.setBackground(new java.awt.Color(1, 21, 38));
         dashboard.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(150, 179, 217), null), "ADMIN MENU", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambay Devanagari", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
-        dashboard.setLayout(new java.awt.GridLayout());
+        dashboard.setLayout(new java.awt.GridLayout(1, 0));
 
         usersManagementButton.setFont(new java.awt.Font("Cambay Devanagari", 1, 18)); // NOI18N
         usersManagementButton.setForeground(new java.awt.Color(255, 255, 255));
