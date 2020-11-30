@@ -447,145 +447,145 @@ public class screenAdminUserManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_exitIcon1MouseClicked
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        // TODO add your handling code here:
+      // TODO add your handling code here:
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
-        int index = usersTable.getSelectedRow();
+      int index = usersTable.getSelectedRow();
 
-        if (index >= 0 && index < listaDeUsuarios.size()) {
-            listaDeUsuarios.remove(index);
-            JOptionPane.showMessageDialog(null, "Remoção realizada com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
-        }
+      if (index >= 0 && index < listaDeUsuarios.size()) {
+        listaDeUsuarios.remove(index);
+        JOptionPane.showMessageDialog(null, "Remoção realizada com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+      }
 
-        carregarTabelaUsuarios();
+      carregarTabelaUsuarios();
 
-        editButton.setEnabled(false);
-        deleteButton.setEnabled(false);
+      editButton.setEnabled(false);
+      deleteButton.setEnabled(false);
 
-        try {
-            regravarArquivo();
-        } catch (IOException erro) {
-            System.out.println(erro.getMessage());
-            JOptionPane.showMessageDialog(null, "Não foi possível salvar as modificações!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
-        }
+      try {
+        regravarArquivo();
+      } catch (IOException erro) {
+        System.out.println(erro.getMessage());
+        JOptionPane.showMessageDialog(null, "Não foi possível salvar as modificações!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+      }
     }//GEN-LAST:event_deleteButtonMouseClicked
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        // TODO add your handling code here:
+      // TODO add your handling code here:
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void editButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonMouseClicked
-        if (inputEmail.getText().equals("") || inputUsername.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Todos os campos devem ser inseridos!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
-        } else if (inputPassword.getPassword().length < 6) {
-            JOptionPane.showMessageDialog(null, "A senha deverá ter no mínimo 6 caracteres!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
-        } else if (!Arrays.toString(inputPassword.getPassword()).equals(Arrays.toString(inputConfirmPassword.getPassword()))) {
-            JOptionPane.showMessageDialog(null, "As senhas devem coincidir!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
-        } else {
-            String username = inputUsername.getText();
-            String email = inputEmail.getText();
-            String password = Arrays.toString(inputPassword.getPassword());
+      if (inputEmail.getText().equals("") || inputUsername.getText().equals("")) {
+        JOptionPane.showMessageDialog(null, "Todos os campos devem ser inseridos!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+      } else if (inputPassword.getPassword().length < 6) {
+        JOptionPane.showMessageDialog(null, "A senha deverá ter no mínimo 6 caracteres!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+      } else if (!Arrays.toString(inputPassword.getPassword()).equals(Arrays.toString(inputConfirmPassword.getPassword()))) {
+        JOptionPane.showMessageDialog(null, "As senhas devem coincidir!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+      } else {
+        String username = inputUsername.getText();
+        String email = inputEmail.getText();
+        String password = Arrays.toString(inputPassword.getPassword());
 
-            int index = usersTable.getSelectedRow();
+        int index = usersTable.getSelectedRow();
 
-            listaDeUsuarios.get(index).setUsername(username);
-            listaDeUsuarios.get(index).setEmail(email);
-            listaDeUsuarios.get(index).setPassword(password);
+        listaDeUsuarios.get(index).setUsername(username);
+        listaDeUsuarios.get(index).setEmail(email);
+        listaDeUsuarios.get(index).setPassword(password);
 
-            JOptionPane.showMessageDialog(null, "Edição realizada com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Edição realizada com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
 
-            carregarTabelaUsuarios();
+        carregarTabelaUsuarios();
 
-            try {
-                regravarArquivo();
-            } catch (IOException erro) {
-                System.out.println(erro.getMessage());
-                JOptionPane.showMessageDialog(null, "Não foi possível salvar as modificações!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
-            }
-
-            editButton.setEnabled(false);
-            deleteButton.setEnabled(false);
+        try {
+          regravarArquivo();
+        } catch (IOException erro) {
+          System.out.println(erro.getMessage());
+          JOptionPane.showMessageDialog(null, "Não foi possível salvar as modificações!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
         }
+
+        editButton.setEnabled(false);
+        deleteButton.setEnabled(false);
+      }
     }//GEN-LAST:event_editButtonMouseClicked
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        // TODO add your handling code here:
+      // TODO add your handling code here:
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
-        if (inputEmail.getText().equals("") || inputUsername.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Todos os campos devem ser inseridos!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
-        } else if (inputPassword.getPassword().length < 6) {
-            JOptionPane.showMessageDialog(null, "A senha deverá ter no mínimo 6 caracteres!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
-        } else if (!Arrays.toString(inputPassword.getPassword()).equals(Arrays.toString(inputConfirmPassword.getPassword()))) {
-            JOptionPane.showMessageDialog(null, "As senhas devem coincidir!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
-        } else {
-            String user = inputUsername.getText();
-            String email = inputEmail.getText();
-            String senha = Arrays.toString(inputPassword.getPassword());
+      if (inputEmail.getText().equals("") || inputUsername.getText().equals("")) {
+        JOptionPane.showMessageDialog(null, "Todos os campos devem ser inseridos!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+      } else if (inputPassword.getPassword().length < 6) {
+        JOptionPane.showMessageDialog(null, "A senha deverá ter no mínimo 6 caracteres!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+      } else if (!Arrays.toString(inputPassword.getPassword()).equals(Arrays.toString(inputConfirmPassword.getPassword()))) {
+        JOptionPane.showMessageDialog(null, "As senhas devem coincidir!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+      } else {
+        String user = inputUsername.getText();
+        String email = inputEmail.getText();
+        String senha = Arrays.toString(inputPassword.getPassword());
 
-            try (BufferedReader buffRead = new BufferedReader(new FileReader("users.txt"))) {
-                String linha;
-                String[] dados;
+        try (BufferedReader buffRead = new BufferedReader(new FileReader("users.txt"))) {
+          String linha;
+          String[] dados;
 
-                while (true) {
-                    linha = buffRead.readLine();
-                    if (linha != null) {
-                        dados = linha.split(";");
+          while (true) {
+            linha = buffRead.readLine();
+            if (linha != null) {
+              dados = linha.split(";");
 
-                        if (dados[0].equals(user)) {
-                            JOptionPane.showMessageDialog(null, "Usuário já existe!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
-                            return;
-                        }
+              if (dados[0].equals(user)) {
+                JOptionPane.showMessageDialog(null, "Usuário já existe!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+                return;
+              }
 
-                        if (dados[1].equals(email)) {
-                            JOptionPane.showMessageDialog(null, "E-mail já existe!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
-                            return;
-                        }
-                    } else {
-                        break;
-                    }
-                }
-
-                buffRead.close();
-
-            } catch (IOException erro) {
-                System.out.println(erro.getMessage());
-
-                JOptionPane.showMessageDialog(null, "Não foi possível obter informações dos usuários!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+              if (dados[1].equals(email)) {
+                JOptionPane.showMessageDialog(null, "E-mail já existe!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+                return;
+              }
+            } else {
+              break;
             }
+          }
 
-            listaDeUsuarios.add(new Usuario(user, email, senha, new Date()));
-            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+          buffRead.close();
 
-            carregarTabelaUsuarios();
-            try {
-                regravarArquivo();
-            } catch (IOException erro) {
-                System.out.println(erro.getMessage());
-                JOptionPane.showMessageDialog(null, "Não foi possível salvar as modificações!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
-            }
+        } catch (IOException erro) {
+          System.out.println(erro.getMessage());
 
-            inputUsername.setText("");
-            inputEmail.setText("");
-            inputPassword.setText("");
-            inputConfirmPassword.setText("");
+          JOptionPane.showMessageDialog(null, "Não foi possível obter informações dos usuários!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
         }
+
+        listaDeUsuarios.add(new Usuario(user, email, senha, new Date()));
+        JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+
+        carregarTabelaUsuarios();
+        try {
+          regravarArquivo();
+        } catch (IOException erro) {
+          System.out.println(erro.getMessage());
+          JOptionPane.showMessageDialog(null, "Não foi possível salvar as modificações!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
+        }
+
+        inputUsername.setText("");
+        inputEmail.setText("");
+        inputPassword.setText("");
+        inputConfirmPassword.setText("");
+      }
     }//GEN-LAST:event_addButtonMouseClicked
 
     private void usersTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersTableMouseClicked
-        int i = usersTable.getSelectedRow();
+      int i = usersTable.getSelectedRow();
 
-        if (i >= 0 && i < listaDeUsuarios.size()) {
-            Usuario usuario = listaDeUsuarios.get(i);
-            inputUsername.setText(usuario.getUsername());
-            inputEmail.setText(usuario.getEmail());
-        }
+      if (i >= 0 && i < listaDeUsuarios.size()) {
+        Usuario usuario = listaDeUsuarios.get(i);
+        inputUsername.setText(usuario.getUsername());
+        inputEmail.setText(usuario.getEmail());
+      }
 
-        addButton.setEnabled(true);
-        editButton.setEnabled(true);
-        deleteButton.setEnabled(true);
+      addButton.setEnabled(true);
+      editButton.setEnabled(true);
+      deleteButton.setEnabled(true);
     }//GEN-LAST:event_usersTableMouseClicked
 
   /**

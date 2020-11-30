@@ -1,6 +1,9 @@
 package classes;
 
+// Classe responsável por realizar o relacionamento entre a classe de Filme
+// e a classe de Usuário (Many to Many)
 public class UsersFavoriteMovies {
+
   // Atributos
   private Usuario usuario;
   private Filme filme;
@@ -11,7 +14,7 @@ public class UsersFavoriteMovies {
     this.username = username;
     this.filme = filme;
   }
-  
+
   // Métodos Getters e Setters
   public Usuario getUsuario() {
     return usuario;

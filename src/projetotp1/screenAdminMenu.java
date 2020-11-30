@@ -121,23 +121,23 @@ public class screenAdminMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void moviesManagementButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moviesManagementButtonMouseClicked
-        this.setVisible(false);
-        new screenAdminMovieManagement().setVisible(true);
+      this.setVisible(false);
+      new screenAdminMovieManagement().setVisible(true);
     }//GEN-LAST:event_moviesManagementButtonMouseClicked
 
     private void usersManagementButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersManagementButtonMouseClicked
-        this.setVisible(false);
-        new screenAdminUserManagement().setVisible(true);
+      this.setVisible(false);
+      new screenAdminUserManagement().setVisible(true);
     }//GEN-LAST:event_usersManagementButtonMouseClicked
 
     private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
-        // TODO add your handling code here:
-        this.setVisible(false);
-        new screenLogin().setVisible(true);
+      // TODO add your handling code here:
+      this.setVisible(false);
+      new screenLogin().setVisible(true);
     }//GEN-LAST:event_exitButtonMouseClicked
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        // TODO add your handling code here:
+      // TODO add your handling code here:
     }//GEN-LAST:event_exitButtonActionPerformed
 
   public static void main(String args[]) {

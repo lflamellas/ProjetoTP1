@@ -12,13 +12,16 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-// Classe do componente de administração de filmes do admin
+// Classe do componente de filmes favoritos do usuário
 public class screenUserFavorites extends javax.swing.JFrame {
 
-  // Array de filmes
+  // Array de filmes favoritos do usuário
   static ArrayList<UsersFavoriteMovies> listaDeFilmesFavoritados;
+  
+  // Array de filmes favoritos dos outros usuários
   static ArrayList<UsersFavoriteMovies> listaDeFilmesFavoritadosCompleta;
-  // Usuário
+  
+  // Nome de usuário do usuário logado
   static String username;
 
   public screenUserFavorites() {
@@ -43,6 +46,7 @@ public class screenUserFavorites extends javax.swing.JFrame {
     carregarTabelaFilmesFavoritados();
   }
 
+  // Método responsável por coletar o nome do usuário logado
   private void pegarNomeDoUsuarioLogado() {
     try (BufferedReader buffRead = new BufferedReader(new FileReader("loggeduser.txt"))) {
       String linha = buffRead.readLine();

@@ -51,4 +51,26 @@ public class Usuario {
   public void setDataDeCriacao(Date dataDeCriacao) {
     this.dataDeCriacao = dataDeCriacao;
   }
+
+  // Métodos
+  // Método retorna se é um usuário ou não
+  public boolean ehUsuario() {
+    return true;
+  }
+
+  // Método retorna true se a senha do usuário é forte
+  public boolean senhaEhForte() {
+    return this.password.length() >= 6;
+  }
+
+  // Método retorna a quantidade de caracteres da senha do usuario
+  public int caracteresDaSenha() {
+    return this.password.length();
+  }
+
+  // Método retorna informações do usuário
+  @Override
+  public String toString() {
+    return "Usuario{" + "username=" + username + ", email=" + email + ", password=" + password + ", dataDeCriacao=" + dataDeCriacao + '}';
+  }
 }

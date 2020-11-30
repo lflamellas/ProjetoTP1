@@ -11,12 +11,13 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-// Classe do componente de administração de filmes do admin
+// Classe do componente de listagem de todos os filmes para o usuário
 public class screenUserMovies extends javax.swing.JFrame {
 
   // Array de filmes
   static ArrayList<Filme> listaDeFilmes;
 
+  // Atributo referente ao nome de usuário do usuário logado
   static String username;
 
   public screenUserMovies() {
@@ -32,6 +33,7 @@ public class screenUserMovies extends javax.swing.JFrame {
     carregarTabelaFilmes();
   }
 
+  // Método responsável por coletar o nome do usuário logado
   private void pegarNomeDoUsuarioLogado() {
     try (BufferedReader buffRead = new BufferedReader(new FileReader("loggeduser.txt"))) {
       String linha = buffRead.readLine();

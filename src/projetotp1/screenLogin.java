@@ -1,6 +1,5 @@
 package projetotp1;
 
-import classes.Usuario;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -11,12 +10,11 @@ import javax.swing.JOptionPane;
 
 // Classe do componente da tela de login
 public class screenLogin extends javax.swing.JFrame {
-  
-//  static Usuario user;
 
+//  static Usuario user;
   public screenLogin() {
     initComponents();
-    
+
     try {
       try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("users.txt", true))) {
         buffWrite.close();
@@ -25,7 +23,7 @@ public class screenLogin extends javax.swing.JFrame {
       System.out.println(erro.getMessage());
       JOptionPane.showMessageDialog(null, "Não foi possível salvar os filmes favoritados!", "Ocorreu um erro", JOptionPane.PLAIN_MESSAGE);
     }
-    
+
     try {
       try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter("movies.txt", true))) {
         buffWrite.close();
